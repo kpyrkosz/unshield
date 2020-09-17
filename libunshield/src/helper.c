@@ -2,7 +2,7 @@
 #define _DEFAULT_SOURCE 1
 #include "internal.h"
 #include "log.h"
-#include "convert_utf/ConvertUTF.h"
+#include "ConvertUTF.h"
 #include <sys/types.h>
 #include <dirent.h>
 #include <stdlib.h>

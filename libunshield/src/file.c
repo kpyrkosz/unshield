@@ -810,7 +810,8 @@ bool unshield_file_save (Unshield* unshield, int index, const char* filename)/*{
         goto exit;
       }
 
-      bytes_to_read = letoh16(bytes_to_read);
+      //can't figure out why this does not link, it is not portable anyways, todo
+      //bytes_to_read = le16toh(bytes_to_read);
       if (bytes_to_read == 0)
       {
         unshield_error("bytes_to_read can't be zero");

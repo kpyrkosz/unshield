@@ -1,8 +1,6 @@
-/* $Id$ */
-#ifndef __cabfile_h__
-#define __cabfile_h__
+#pragma once
 
-#include "internal.h"
+#include <stdint.h>
 
 #define OFFSET_COUNT 0x47
 #define CAB_SIGNATURE 0x28635349
@@ -91,6 +89,3 @@ typedef struct
   uint32_t descriptor_offset;
   uint32_t next_offset;
 } OffsetList;
-
-#endif
-

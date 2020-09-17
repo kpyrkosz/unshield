@@ -13,7 +13,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <getopt.h> /* getopt at: https://gist.github.com/ashelly/7776712 */
-#include "../lib/libunshield.h"
+#include "libunshield.h"
 #ifdef HAVE_CONFIG_H
 #include "lib/unshield_config.h"
 #endif
@@ -116,7 +116,7 @@ static bool make_sure_directory_exists(const char* directory)/*{{{*/
 
       if (stat(current, &dir_stat) < 0)
       {
-        #ifdef __MINGW32__
+        #if defined (__MINGW32__) || defined (_WIN32)
         if (_mkdir(current) < 0)
         #else
         if (mkdir(current, 0700) < 0)
@@ -710,7 +710,7 @@ static int list_files_helper(Unshield* unshield, const char* prefix, int first, 
       if (dirname[strlen(dirname)-1] != '\\')
         strcat(dirname, "\\");
 
-      printf(" %8" SIZE_FORMAT "  %s%s\n",
+      printf(" %zu   %s%s\n",
           unshield_file_size(unshield, i),
           dirname,
           unshield_file_name(unshield, i)); 
