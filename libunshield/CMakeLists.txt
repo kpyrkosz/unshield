@@ -25,3 +25,4 @@ set(LIBUNSHIELD_SOURCES
 
 add_library(${PROJECT_NAME} STATIC ${LIBUNSHIELD_HEADES} ${LIBUNSHIELD_SOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE ZLIB::ZLIB OpenSSL::Crypto convert_utf)
+target_include_directories(${PROJECT_NAME} PUBLIC inc)
