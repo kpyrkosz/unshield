@@ -8,7 +8,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-#include <unistd.h>
 
 #ifdef _WIN32
   #define realpath(N,R) _fullpath((R),(N),_MAX_PATH)
@@ -145,13 +144,13 @@ exit:
   return NULL;
 }
 
-long unshield_fsize(FILE* file)
+long long unshield_fsize(FILE* file)
 {
-  long result;
-  long previous = ftell(file);
-  fseek(file, 0L, SEEK_END);
-  result = ftell(file);
-  fseek(file, previous, SEEK_SET);
+  long long result;
+  long long previous = _ftelli64(file);
+  _fseeki64(file, 0L, SEEK_END);
+  result = _ftelli64(file);
+  _fseeki64(file, previous, SEEK_SET);
   return result;
 }
 

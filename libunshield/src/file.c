@@ -485,7 +485,7 @@ static bool unshield_reader_open_volume(UnshieldReader* reader, int volume)/*{{{
   else
     reader->volume_bytes_left = volume_bytes_left_expanded;
 
-  fseek(reader->volume_file, data_offset, SEEK_SET);
+  _fseeki64(reader->volume_file, data_offset, SEEK_SET);
 
   reader->volume = volume;
   success = true;
@@ -531,7 +531,7 @@ static bool unshield_reader_read(UnshieldReader* reader, void* buffer, size_t si
 
 #if VERBOSE >= 3
     unshield_trace("Trying to read 0x%x bytes from offset %08x in volume %i", 
-        bytes_to_read, ftell(reader->volume_file), reader->volume);
+        bytes_to_read, _ftelli64(reader->volume_file), reader->volume);
 #endif
     if (bytes_to_read == 0)
     {
@@ -544,7 +544,7 @@ static bool unshield_reader_read(UnshieldReader* reader, void* buffer, size_t si
       unshield_error("Failed to read 0x%08x bytes of file %i (%s) from volume %i. Current offset = 0x%08x",
           bytes_to_read, reader->index, 
           unshield_file_name(reader->unshield, reader->index), reader->volume,
-          ftell(reader->volume_file));
+          _ftelli64(reader->volume_file));
       goto exit;
     }
 
@@ -640,7 +640,7 @@ static UnshieldReader* unshield_reader_create_external(/*{{{*/
             temporary_file = tmpfile();
             copy_file(reader->volume_file, temporary_file);
             fwrite(END_OF_CHUNK + sizeof(END_OF_CHUNK) - diff, 1, diff, temporary_file);
-            fseek(temporary_file, 0, SEEK_SET);
+            _fseeki64(temporary_file, 0, SEEK_SET);
 
             fclose(reader->volume_file);
             reader->volume_file = temporary_file;
